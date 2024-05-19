@@ -10,25 +10,13 @@ const app = express();
 const port = 3000;
 
 // MongoDB Atlas connection string from .env file
-const dbURI =
-  "mongodb+srv://rashisngh2012:UKqOzR8lnlgDq2J5@UserCluster.mongodb.net/UserCluster?retryWrites=true&w=majority";
+const dbURI = process.env.MONGODB_URI;
+
 // Connect to MongoDB
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("MongoDB connection error: ", err));
-
-mongoose.connection.on("connected", () => {
-  console.log("Mongoose connected to " + dbURI);
-});
-
-mongoose.connection.on("error", (err) => {
-  console.log("Mongoose connection error: " + err);
-});
-
-mongoose.connection.on("disconnected", () => {
-  console.log("Mongoose disconnected");
-});
 
 // Define User schema and model
 const userSchema = new mongoose.Schema({
@@ -42,6 +30,9 @@ const User = mongoose.model("User", userSchema);
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files
+app.use(express.static("public"));
 
 // Signup route
 app.post("/signup", async (req, res) => {
