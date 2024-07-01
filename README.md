@@ -25,3 +25,6 @@ and mentor.
 * MongoDB
 * WebRTC
 * Socket.io
+
+# Screenshots:
+![ut](https://github.com/RashiS20/Face_recog_and_X_factored_learning_platform/assets/104789491/557d8a3e-5c1e-4de5-84e5-99327399ddfb)
